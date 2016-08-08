@@ -59,7 +59,7 @@ public class ForumDAO {
 	public List<Application> selectAll(){
 		List<Application> applications = new ArrayList<Application>();
 		Connection connection = getConnection();
-		String sql = "select * from comments";
+		String sql = "select * from comments order by time DESC";
 		PreparedStatement statement = null;
 		try {
 			statement = connection.prepareStatement(sql);

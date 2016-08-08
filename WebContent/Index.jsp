@@ -11,7 +11,7 @@
 <meta name="Forum"
 	content="Comment box for clients to submit and respond">
 <meta name="keywords" content="HTML,XML,Java">
-<meta name="Andy Ball" content="Loyalty One Project">
+<meta name="Andy Ball" content="Project">
 
 <!-- Mobile-friendly viewport -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,13 +32,15 @@ user {
 font-weight: bold
 }
 
-div.comment {
-    position: absolute;
-    right: 0px;
-    width: 300px;
+.comment {
+    position: center;
+    right: 35px;
+    width: 500px;
     border: 3px solid blue;
-    padding: 2px;
+    padding: 10px;
 }
+.comment .date { float:right }
+.comment .name { float:left }
 
 </style>
 
@@ -48,7 +50,7 @@ div.comment {
 <body>
 
 	<header>
-	<h2>LoyaltyOne Forum</h2>
+	<h2>Forum</h2>
 	</header>
 	<div>
 
@@ -68,10 +70,12 @@ div.comment {
 				</tbody>
 			</table>
 			<input type="submit" submit value="Done" name="submit"
-				style="background-color: yellowgreen; color: white; padding: 5px; font-size: 18px; border: none; padding: 8px;">
+				style="background-color: yellowgreen; color: white; padding: 5px; font-size: 18px; border: none; padding: 8px;"/>
 
 		</form>
+		<br>
 	</div>
+
 	<%
 		ForumDAO forum = new ForumDAO();
 		String user = request.getParameter("user");
@@ -79,29 +83,33 @@ div.comment {
 	
 		Application toSubmit = new Application(user, input);
 		forum.create(toSubmit);
-		
-
 		List<Application> applications = forum.selectAll();
+	
+		for (Application app : applications) {
 	%>
-	<table>
-	<tbody>
-		<%
-			for (Application app : applications) {
-		%>
-		<div class="comment">
-		<tr>
-		<td><user><%=app.getUser() %></user></td>
-		<td> <%=app.getInput() %></td>
-		<td> <%=app.getTime() %></td>
-		</tr>
-		</div>
+	
+	
+	<div class="comment">
+		
+		<span class="name"><user><%=app.getUser() %></user></span>
+		<span class="date"><%=app.getTime() %></span>
+		<br>
+		<span> <%=app.getInput() %> </span>
+	
+	</div>
+
 		<%
 			}
 		%>
-	</tbody>
-	</table>
-	<footer></footer>
+
+		
+
+
+<footer>
+</footer>
+
+
 </body>
 
-</html>
 
+</html>
