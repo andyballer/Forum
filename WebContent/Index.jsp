@@ -31,6 +31,15 @@ header,footer {
 user {
 font-weight: bold
 }
+
+div.comment {
+    position: absolute;
+    right: 0px;
+    width: 300px;
+    border: 3px solid blue;
+    padding: 2px;
+}
+
 </style>
 
 <title>Client-Forum</title>
@@ -53,7 +62,7 @@ font-weight: bold
 					</tr>
 					<tr>
 						<td><h4>Your Comments:</h4></td>
-						<td><textarea name="comment" rows="10" cols="40">Enter text here</textarea></td>
+						<td><textarea name="input" rows="10" cols="40"></textarea></td>
 					</tr>
 
 				</tbody>
@@ -66,9 +75,9 @@ font-weight: bold
 	<%
 		ForumDAO forum = new ForumDAO();
 		String user = request.getParameter("user");
-		String comment = request.getParameter("comment");
+		String input = request.getParameter("input");
 	
-		Application toSubmit = new Application(user, comment);
+		Application toSubmit = new Application(user, input);
 		forum.create(toSubmit);
 		
 
@@ -79,10 +88,11 @@ font-weight: bold
 		<%
 			for (Application app : applications) {
 		%>
-		<div>
+		<div class="comment">
 		<tr>
 		<td><user><%=app.getUser() %></user></td>
 		<td> <%=app.getInput() %></td>
+		<td> <%=app.getTime() %></td>
 		</tr>
 		</div>
 		<%

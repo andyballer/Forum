@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class ForumDAO {
 
 	public Connection getConnection(){
-		String connectionURL = "jdbc:mysql://localhost:3306/Forum";
+		String connectionURL = "jdbc:mysql://localhost:3306/Forum?autoReconnect=true&useSSL=false";
 		Connection connection = null;
 		
 		try {
@@ -38,11 +39,12 @@ public class ForumDAO {
 	public void create(Application application){
 		Connection connection = getConnection();
 		
-		String sql = "insert into entry (Input, User) values (?,?)";
+		String sql = "insert into comments (Input, User, Time) values (?,?,?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, application.getInput());
 			statement.setString(2, application.getUser());
+			statement.setTimestamp(3, application.getTime());
 			statement.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -57,7 +59,7 @@ public class ForumDAO {
 	public List<Application> selectAll(){
 		List<Application> applications = new ArrayList<Application>();
 		Connection connection = getConnection();
-		String sql = "select * from entry";
+		String sql = "select * from comments";
 		PreparedStatement statement = null;
 		try {
 			statement = connection.prepareStatement(sql);
@@ -76,7 +78,8 @@ public class ForumDAO {
 			while(results.next()){
 				String user = results.getString("User");
 				String input = results.getString("Input");
-				Application application = new Application(user, input);
+				Timestamp time = results.getTimestamp("Time");
+				Application application = new Application(user, input, time);
 				applications.add(application);
 			}
 		} catch (SQLException e) {
@@ -88,13 +91,9 @@ public class ForumDAO {
 	
 
 	public static void main(String[] args) {
-		System.out.println("hello");
 		ForumDAO dao = new ForumDAO();
 		Connection connection = dao.getConnection();
-		
-		dao.selectAll();
-		Application application = new Application("more input", "Andy");
-		dao.create(application);
+
 		
 		System.out.println(connection);
 		dao.closeConnection(connection);

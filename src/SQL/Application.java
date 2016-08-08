@@ -1,14 +1,15 @@
 package SQL;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 
 public class Application {
 	
 	private String input;
 	private String user;
-	private Date date;
-	private Time time;
+	private Timestamp time;
 	
 	public Application(){
 		super();
@@ -17,20 +18,20 @@ public class Application {
 	public Application(String user, String input){
 		this.input = input;
 		this.user = user;
+		setTime();
+
 	}
 	
-	public Application(String input, Date date, Time time){
-		this.input = input;
-		this.date = date;
-		this.time = time;
-	}
-
-	public Application(String input, String user, Date date, Time time) {
-		super();
+	public Application(String user, String input, Timestamp time){
 		this.input = input;
 		this.user = user;
-		this.date = date;
 		this.time = time;
+
+	}
+	
+	public Application (String input){
+		this.input = input;
+		setTime();
 	}
 
 	public String getInput() {
@@ -48,20 +49,19 @@ public class Application {
 	public void setUser(String user) {
 		this.user = user;
 	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Time getTime() {
+	
+	public Timestamp getTime(){
 		return time;
 	}
 
-	public void setTime(Time time) {
-		this.time = time;
+	private Timestamp getCurrentTime() {
+		Calendar calendar = Calendar.getInstance();
+		Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
+		return currentTimestamp;
 	}
+	
+	private void setTime(){
+		time = getCurrentTime();
+	}
+
 }
