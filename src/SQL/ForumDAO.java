@@ -34,6 +34,7 @@ public class ForumDAO {
 		}
 	}
 	
+	
 	public void create(Application application){
 		Connection connection = getConnection();
 		
@@ -51,6 +52,7 @@ public class ForumDAO {
 		closeConnection(connection);
 		
 	}
+	
 	
 	public List<Application> selectAll(){
 		List<Application> applications = new ArrayList<Application>();
@@ -73,9 +75,8 @@ public class ForumDAO {
 		try {
 			while(results.next()){
 				String user = results.getString("User");
-				System.out.println(user);
 				String input = results.getString("Input");
-				Application application = new Application(input, user);
+				Application application = new Application(user, input);
 				applications.add(application);
 			}
 		} catch (SQLException e) {
@@ -84,6 +85,7 @@ public class ForumDAO {
 		}
 		return applications;
 	}
+	
 
 	public static void main(String[] args) {
 		System.out.println("hello");

@@ -14,7 +14,7 @@ public class Application {
 		super();
 	}
 	
-	public Application(String input, String user){
+	public Application(String user, String input){
 		this.input = input;
 		this.user = user;
 	}
