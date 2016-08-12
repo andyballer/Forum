@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="run" name="Compile and Run Index.jsp">
+	<target name="run" depends="compile">
+		<java classname="index">
+			<classpath path="../WebContent"/>
+		</java>
+	</target>
+	<target name="compile">
+		<javac includeantruntime="false" srcdir="../WebContent"/>
+	</target>
+
+
+</project>
