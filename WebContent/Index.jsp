@@ -8,7 +8,7 @@
 
 
 <meta charset="utf-8">
-<meta name="Forum"
+<meta name="LoyaltyOne Forum"
 	content="Comment box for clients to submit and respond">
 <meta name="keywords" content="HTML,XML,Java">
 <meta name="Andy Ball" content="Project">
@@ -32,17 +32,26 @@ user {
 font-weight: bold
 }
 
-.comment {
-    position: center;
-    right: 35px;
+.commentbox {
+	margin:300 auto;
     width: 500px;
     border: 3px solid blue;
     padding: 10px;
 }
-.comment .date { float:right }
-.comment .name { float:left }
+.commentbox .date { float:right }
+.commentbox .name { float:left }
 
 </style>
+
+<script>
+function alertNull(){
+	var comment = document.forms["myForm"]["input"].value;
+	if(comment == null || comment == ""){
+		alert("Please write a comment to submit");
+		return false;
+	}
+}
+</script>
 
 <title>Client-Forum</title>
 </head>
@@ -54,13 +63,13 @@ font-weight: bold
 	</header>
 	<div>
 
-		<form name="myForm" action="Index.jsp" method=POST>
+		<form name="myForm" action="Index.jsp" method=POST onsubmit="return alertNull()">
 			<table>
 				<tbody>
 
 					<tr>
 						<td><h4>Username:</h4></td>
-						<td><input type="text" name="user" value="" size="50" /></td>
+						<td><input type="text" name="user" value="" size="53" /></td>
 					</tr>
 					<tr>
 						<td><h4>Your Comments:</h4></td>
@@ -89,7 +98,7 @@ font-weight: bold
 	%>
 	
 	
-	<div class="comment">
+	<div class="commentbox">
 		
 		<span class="name"><user><%=app.getUser() %></user></span>
 		<span class="date"><%=app.getTime() %></span>
