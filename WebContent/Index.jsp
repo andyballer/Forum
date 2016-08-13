@@ -1,57 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"
-	import="java.util.*,SQL.ForumDAO,SQL.Application"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"
+	import="java.util.*,SQL.ForumDAO,SQL.Comment"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-
-<meta charset="utf-8">
-<meta name="LoyaltyOne Forum"
-	content="Comment box for clients to submit and respond">
-<meta name="keywords" content="HTML,XML,Java">
-<meta name="Andy Ball" content="Project">
-
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta charset="utf-8">
+	<meta name="LoyaltyOne Forum"
+		content="Comment box for clients to submit and respond">
+	<meta name="keywords" content="HTML,XML,Java">
+	<meta name="Andy Ball" content="Project">
+	 
+	<link href="<c:url value="/resources/commentLayout.css" />" rel="stylesheet">
+    <script src="<c:url value="/resources/commentLayout.js" />"></script>
 <!-- Mobile-friendly viewport -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
 <link rel="stylesheet" href="css/styles.css?v=1.0">
-
-<style>
-header,footer {
-	padding: 1em;
-	color: white;
-	background-color: black;
-	clear: left;
-	text-align: center;
-}
-
-user {
-font-weight: bold
-}
-
-.commentbox {
-	margin:300 auto;
-    width: 500px;
-    border: 3px solid blue;
-    padding: 10px;
-}
-.commentbox .date { float:right }
-.commentbox .name { float:left }
-
-</style>
-
-<script>
-function alertNull(){
-	var comment = document.forms["myForm"]["input"].value;
-	if(comment == null || comment == ""){
-		alert("Please write a comment to submit");
-		return false;
-	}
-}
-</script>
 
 <title>Client-Forum</title>
 </head>
@@ -90,20 +57,20 @@ function alertNull(){
 		String user = request.getParameter("user");
 		String input = request.getParameter("input");
 	
-		Application toSubmit = new Application(user, input);
+		Comment toSubmit = new Comment(user, input);
 		forum.create(toSubmit);
-		List<Application> applications = forum.selectAll();
+		List<Comment> comments = forum.selectAll();
 	
-		for (Application app : applications) {
+		for (Comment comment : comments) {
 	%>
 	
 	
-	<div class="commentbox">
+	<div class="commentbox" onclick="return reply()">
 		
-		<span class="name"><user><%=app.getUser() %></user></span>
-		<span class="date"><%=app.getTime() %></span>
+		<span class="name"><%=comment.getUser() %></span>
+		<span class="date"><%=comment.getTime() %></span>
 		<br>
-		<span> <%=app.getInput() %> </span>
+		<span> <%=comment.getInput() %> </span>
 	
 	</div>
 

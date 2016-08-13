@@ -5,31 +5,31 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 
-public class Application {
+public class Comment {
 	
-	private String input;
 	private String user;
+	private String input;
 	private Timestamp time;
 	
-	public Application(){
+	public Comment(){
 		super();
 	}
 	
-	public Application(String user, String input){
+	public Comment(String user, String input){
 		this.input = input;
 		this.user = user;
 		setTime();
 
 	}
 	
-	public Application(String user, String input, Timestamp time){
+	public Comment(String user, String input, Timestamp time){
 		this.input = input;
 		this.user = user;
 		this.time = time;
 
 	}
 	
-	public Application (String input){
+	public Comment(String input){
 		this.input = input;
 		setTime();
 	}
