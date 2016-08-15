@@ -10,6 +10,11 @@ public class Comment {
 	private String user;
 	private String input;
 	private Timestamp time;
+	private String city;
+	private int id;
+	private String latitude;
+	private String longitutde;
+	private Comment[] children;
 	
 	public Comment(){
 		super();
@@ -26,7 +31,21 @@ public class Comment {
 		this.input = input;
 		this.user = user;
 		this.time = time;
-
+	}
+	
+	public Comment(String user, String input, Timestamp time, String city){
+		this.input = input;
+		this.user = user;
+		this.time = time;
+		this.city = city;
+	}
+	
+	public Comment(String user, String input, Timestamp time, String city, int id){
+		this.input = input;
+		this.user = user;
+		this.time = time;
+		this.city = city;
+		this.id = id;
 	}
 	
 	public Comment(String input){
@@ -62,6 +81,22 @@ public class Comment {
 	
 	private void setTime(){
 		time = getCurrentTime();
+	}
+
+	public void setCity(String city){
+		this.city = city;
+	}
+	
+	public String getCity(){
+		return this.city;
+	}
+	
+	public int getId(){
+		return this.id;
+	}
+	
+	protected void setId(int id){
+		this.id = id;
 	}
 
 }

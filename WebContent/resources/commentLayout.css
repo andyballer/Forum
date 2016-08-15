@@ -6,11 +6,34 @@ header,footer {
 	text-align: center;
 }
 
+.commentSection{
+	font-size: 40px;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 25px;
+}
+
+.charCount{
+	margin-left: 130px;
+}
+
+.buttonMargin{
+	margin-top: 20px;
+	margin-left: 180px;
+}
+
+.submit {
+	background-color: yellowgreen; 
+	color: white; 
+	padding: 5px; 
+	font-size: 18px; 
+	padding: 8px;
+}
+
 .commentBox {
-	margin:300 auto;
     width: 500px;
     border: 3px solid blue;
     padding: 10px;
+    margin-left: 25px;
 }
 .commentBox .time { float:right }
 .commentBox .user { font-weight: bold; float: left }

@@ -1,9 +1,21 @@
+//include jquery library
+
 function alertNull(){
 	var comment = document.forms["myForm"]["input"].value;
 	if(comment == null || comment == ""){
 		alert("Please write a comment to submit");
 		return false;
 	}
+}
+
+function countChars(){
+var area = document.getElementById("textarea");
+var message = document.getElementById("charCount");
+var maxLength = 200;
+var checkLength = function() {
+    message.innerHTML = "Characters remaining: ("+(maxLength-area.value.length)+"/200)";
+	}
+setInterval(checkLength, 200);
 }
 
 function postAllComments(){
@@ -29,8 +41,14 @@ function postComment(comment){
 	return commentUser + commentTime + commentInput;
 }
 
-function reply(div){
-	var innerDiv = document.createElement('div');
+function reply(index){
+	alert(index);
+	var x=document.getElementById(id);
+	alert(x);
+
+	//var innerDiv = document.createElement("div");
+	
+	x.innerHTML += '<textarea name="input" rows="10" cols="40"></textarea>';
 	//use div.appendChild(innerDiv
 	return;
 }
