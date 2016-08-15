@@ -17,20 +17,17 @@
 <!-- Mobile-friendly viewport -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-<link rel="stylesheet" href="css/styles.css?v=1.0">
-
 <title>Client-Forum</title>
 </head>
 
 <body>
 
 	<header>
-	<h2>Forum</h2>
+	<h2>LoyaltyOne Forum</h2>
 	</header>
 	<div>
 
-		<form name="myForm" action="Index.jsp" method=POST onsubmit="return alertNull()">
+		<form name="myForm" action="myServletPath" method="post" onsubmit="return alertNull()">
 			<table>
 				<tbody>
 
@@ -52,34 +49,17 @@
 		<br>
 	</div>
 
-	<%
-		ForumDAO forum = new ForumDAO();
-		String user = request.getParameter("user");
-		String input = request.getParameter("input");
-	
-		Comment toSubmit = new Comment(user, input);
-		forum.create(toSubmit);
-		List<Comment> comments = forum.selectAll();
-	
-		for (Comment comment : comments) {
-	%>
-	
-	
-	<div class="commentbox" onclick="return reply()">
-		
-		<span class="name"><%=comment.getUser() %></span>
-		<span class="date"><%=comment.getTime() %></span>
+
+	<c:forEach items="${comments}" var="comment"> 
+	<div class="commentBox" onclick="return reply()">
+		<span class="time">${comment.time}</span>
+		<span class="user">${comment.user}</span>
 		<br>
-		<span> <%=comment.getInput() %> </span>
-	
+		<span> ${comment.input}</span>
 	</div>
+	</c:forEach>
 
-		<%
-			}
-		%>
-
-		
-
+	
 
 <footer>
 </footer>

@@ -13,11 +13,13 @@ public class ForumDAO {
 
 	public Connection getConnection(){
 		String connectionURL = "jdbc:mysql://localhost:3306/Forum?autoReconnect=true&useSSL=false";
+		String user = "root";
+		String pass = "root";
 		Connection connection = null;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(connectionURL, "root", "root");
+			connection = DriverManager.getConnection(connectionURL, user, pass);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
