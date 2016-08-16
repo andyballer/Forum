@@ -10,11 +10,14 @@ public class Comment {
 	private int id;
 	private String user;
 	private String input;
-	private Timestamp time;
 	private String city;
+	private Timestamp time;
+	private String readableTime;
 	private String latitude;
 	private String longitutde;
 	private int parentId; //always only has one parent
+	
+	private static int idCount=1;
 	
 	public Comment(){
 		super();
@@ -24,32 +27,32 @@ public class Comment {
 		this.input = input;
 		this.user = user;
 		setTime();
+		setId();
 
 	}
 	
-	public Comment(String user, String input, Timestamp time){
+	public Comment(String user, String input, String city){
 		this.input = input;
 		this.user = user;
-		this.time = time;
+		this.city = city;
+		setId();
+		setTime();
 	}
 	
-	public Comment(String user, String input, Timestamp time, String city){
+	//creates comments for comment list pulling all info from database
+	public Comment(String user, String input, String city, Timestamp time, int id){
 		this.input = input;
 		this.user = user;
-		this.time = time;
 		this.city = city;
-	}
-	
-	public Comment(String user, String input, Timestamp time, String city, int id){
-		this.input = input;
-		this.user = user;
 		this.time = time;
-		this.city = city;
 		this.id = id;
+		//this should probably be on front end so comment objects dont need to carry it around
+		setReadableTime();
 	}
-	
+		
 	public Comment(String input){
 		this.input = input;
+		setId();
 		setTime();
 	}
 
@@ -69,19 +72,35 @@ public class Comment {
 		this.user = user;
 	}
 	
-	public Timestamp getTime(){
-		return time;
-	}
-
-	private Timestamp getCurrentTime() {
+	//need this method
+	private Timestamp getCurrentTime(){
 		Calendar calendar = Calendar.getInstance();
-		Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
-		return currentTimestamp;
+		Timestamp currentTime = new java.sql.Timestamp(calendar.getTime().getTime());
+		return currentTime;
+	}
+		
+	public void setReadableTime(){
+		ParseTime timeHandler = new ParseTime(); 
+		String timeString = getTime().toString();
+		String readableTime = timeHandler.makeDateReadable(timeString);
+		this.readableTime = readableTime;
 	}
 	
-	private void setTime(){
-		time = getCurrentTime();
+	public String getReadableTime(){
+		return this.readableTime;
 	}
+	
+	
+	private void setTime(){
+		if(this.time == null){
+			this.time = getCurrentTime();
+		}
+	}
+	
+	public Timestamp getTime(){
+		return this.time;
+	}
+
 
 	public void setCity(String city){
 		this.city = city;
@@ -95,8 +114,12 @@ public class Comment {
 		return this.id;
 	}
 	
-	protected void setId(int id){
-		this.id = id;
+	//sets id only if the id is null
+	protected void setId(){
+		if(this.id == 0){
+			this.id = idCount;
+			idCount++;
+		}
 	}
 
 }

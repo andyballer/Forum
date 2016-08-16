@@ -22,17 +22,17 @@
 <title>Client-Forum</title>
 </head>
 
-<body>
+<body class="backgroundColor">
 
 	<header>
 		<div class="image">
-		<img src="resources/images/loyaltyLogo.jpg" width="700" height="200" alt="">
-		 <h2>Company Forum</h2>
+			<img src="resources/images/loyaltyLogo.jpg" width="700" height="200" alt="">
+		 	<h2>Company Forum</h2>
 		 </div>
 	</header>
 	
 	<!-- Takes input from a user and posts it to the forum -->
-	<div>
+	<div class="form">
 		<form name="myForm" action="myServletPath" method="post" onsubmit="return alertNull()">
 			<table>
 				<tbody>
@@ -47,14 +47,14 @@
 					</tr>
 					<tr>
 						<td><h4>Your Comments:</h4></td>
-						<td><textarea onkeyup="countChars()" id="textarea" name="input" rows="10" cols="40"></textarea></td>
+						<td><textarea onkeyup="countChars()" id="textarea" name="input" rows="10" cols="55"></textarea></td>
 					</tr>
 
 				</tbody>
 			</table>
 			<div class="buttonMargin">
 				<input class="submit" type="submit" submit value="Done" name="submit"/>
-				<span id="charCount" class="charCount"></span>
+				<span id="charCount" class="charCount">Characters remaining: 200</span>
 			</div>
 		</form>
 		<br>
@@ -64,12 +64,12 @@
 
 <!-- Loads in comments from database to be displayed below form -->
 	<c:forEach items="${comments}" var="comment" varStatus="index"> 
-	<div class="commentBox" id="${comment.user}">
-		<span class="time">${comment.time}</span>
+	<div class="commentBox" >
+		<span class="time">@ ${comment.readableTime}</span>
+		<span class ="city"> FROM: ${comment.city}</span>
 		<span class="user">${comment.user}</span>
-		<br>
-		<span> ${comment.input}</span>
-		<br>
+		<div class="input"> ${comment.input}</div>
+		
 		<!-- pass index as varStatus from jsp to javascript to keep track of where responses go -->
 		<input type="submit" submit value = "reply" onClick="reply(${index.index});">
 	</div>

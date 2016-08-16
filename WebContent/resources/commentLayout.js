@@ -13,7 +13,7 @@ var area = document.getElementById("textarea");
 var message = document.getElementById("charCount");
 var maxLength = 200;
 var checkLength = function() {
-    message.innerHTML = "Characters remaining: ("+(maxLength-area.value.length)+"/200)";
+    message.innerHTML = "Characters remaining: "+(maxLength-area.value.length)+"/200";
 	}
 setInterval(checkLength, 200);
 }

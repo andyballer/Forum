@@ -41,12 +41,15 @@ public class ForumDAO {
 	public void create(Comment comment){
 		Connection connection = getConnection();
 		
-		String sql = "insert into comments (Input, User, Time) values (?,?,?)";
+		String sql = "insert into userEntries (Id, Input, User, Time, City) values (?,?,?,?,?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, comment.getInput());
-			statement.setString(2, comment.getUser());
-			statement.setTimestamp(3, comment.getTime());
+			statement.setInt(1, comment.getId());
+			statement.setString(2, comment.getInput());
+			statement.setString(3, comment.getUser());
+			statement.setTimestamp(4, comment.getTime());
+			statement.setString(5, comment.getCity());
+			
 			statement.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -57,11 +60,11 @@ public class ForumDAO {
 		
 	}
 	
-	
+	//Can I make this only execute once instead of every time? Only add in new comment to list on POST()?
 	public List<Comment> selectAll(){
 		List<Comment> comments = new ArrayList<Comment>();
 		Connection connection = getConnection();
-		String selectComments = "select * from comments order by time DESC";
+		String selectComments = "select * from userEntries order by time DESC";
 		PreparedStatement statement = null;
 		try {
 			statement = connection.prepareStatement(selectComments);
@@ -80,8 +83,11 @@ public class ForumDAO {
 			while(results.next()){
 				String user = results.getString("User");
 				String input = results.getString("Input");
+				String city = results.getString("City");
 				Timestamp time = results.getTimestamp("Time");
-				Comment comment = new Comment(user, input, time);
+				int id = results.getInt("Id");
+				
+				Comment comment = new Comment(user, input, city, time, id);
 				comments.add(comment);
 			}
 		} catch (SQLException e) {

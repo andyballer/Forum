@@ -3,13 +3,24 @@
  font-family: Georgia,Times,Times New Roman,serif; 
 }
 
-.image{
+
+
+
+
+.image{	
 	color: #007cc2;
-	position: relative; 
+	position: relative;
 }
 
 .forum{
 	color:
+}
+
+.backgroundColor{
+	background-color: #f5ebdb;
+}
+.form{
+	margin-left: 55px;
 }
 
 header,footer {
@@ -20,8 +31,6 @@ header,footer {
 }
 
 
-
-
 .commentSection{
 	font-size: 40px;
     border-bottom: 1px solid #aaa;
@@ -29,12 +38,12 @@ header,footer {
 }
 
 .charCount{
-	margin-left: 130px;
+	margin-left: 60px;
 }
 
 .buttonMargin{
 	margin-top: 20px;
-	margin-left: 180px;
+	margin-left: 250px;
 }
 
 .submit {
@@ -56,5 +65,16 @@ header,footer {
     margin-bottom: 10px;
     
 }
-.commentBox .time { float:right }
-.commentBox .user { font-weight: bold; float: left }
+.commentBox .time {
+	float: right;
+	font-size: 15px;
+}
+.commentBox .user {
+	font-weight: bold;
+	float: left; 
+}
+
+.commentBox .input {
+	margin-top: 40px;
+	margin-bottom: 20px;
+}

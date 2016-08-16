@@ -51,10 +51,11 @@ public class Servlet extends HttpServlet {
 
 		String user = request.getParameter("user");
 		String input = request.getParameter("input");
+		String city = request.getParameter("city");
 		
 		//submit to database
 		ForumDAO handleSubmit = new ForumDAO();
-		Comment toSubmit = new Comment(user, input);
+		Comment toSubmit = new Comment(user, input, city);
 		
 		if(toSubmit != null){
 			handleSubmit.create(toSubmit);
