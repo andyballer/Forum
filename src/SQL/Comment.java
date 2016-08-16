@@ -7,14 +7,14 @@ import java.util.Calendar;
 
 public class Comment {
 	
+	private int id;
 	private String user;
 	private String input;
 	private Timestamp time;
 	private String city;
-	private int id;
 	private String latitude;
 	private String longitutde;
-	private Comment[] children;
+	private int parentId; //always only has one parent
 	
 	public Comment(){
 		super();

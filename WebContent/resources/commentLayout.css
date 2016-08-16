@@ -1,10 +1,26 @@
+
+* {
+ font-family: Georgia,Times,Times New Roman,serif; 
+}
+
+.image{
+	color: #007cc2;
+	position: relative; 
+}
+
+.forum{
+	color:
+}
+
 header,footer {
 	padding: 1em;
 	color: white;
-	background-color: black;
 	clear: left;
 	text-align: center;
 }
+
+
+
 
 .commentSection{
 	font-size: 40px;
@@ -31,9 +47,14 @@ header,footer {
 
 .commentBox {
     width: 500px;
-    border: 3px solid blue;
+    border-style: solid;
+    border-color: #007cc2;
+    background-color: #D3D3D3;
     padding: 10px;
     margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
 }
 .commentBox .time { float:right }
 .commentBox .user { font-weight: bold; float: left }

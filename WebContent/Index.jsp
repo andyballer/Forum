@@ -25,7 +25,10 @@
 <body>
 
 	<header>
-	<h2>LoyaltyOne Forum</h2>
+		<div class="image">
+		<img src="resources/images/loyaltyLogo.jpg" width="700" height="200" alt="">
+		 <h2>Company Forum</h2>
+		 </div>
 	</header>
 	
 	<!-- Takes input from a user and posts it to the forum -->
