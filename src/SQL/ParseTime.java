@@ -10,8 +10,8 @@ public class ParseTime {
 		String month = numsToLetters(time.charAt(6)+"");
 		String day = time.substring(8,10);
 		
-		String hour = time.substring(11,16);
-		String date = month + " " + day + " " + year + " " + hour; 
+		String hour = time.substring(11,19);
+		String date = month + " " + day + " " + year + ", " + hour; 
 		//System.out.println(date);
 		return date;
 	}

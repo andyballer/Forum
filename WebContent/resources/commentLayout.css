@@ -30,13 +30,6 @@ header,footer {
 	text-align: center;
 }
 
-
-.commentSection{
-	font-size: 40px;
-    border-bottom: 1px solid #aaa;
-    margin-bottom: 25px;
-}
-
 .charCount{
 	margin-left: 60px;
 }
@@ -54,27 +47,49 @@ header,footer {
 	padding: 8px;
 }
 
+.commentSection{
+	font-size: 40px;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 25px;
+    margin-left: 60px;
+}
+
 .commentBox {
-    width: 500px;
+    width: 685px;
     border-style: solid;
     border-color: #007cc2;
     background-color: #D3D3D3;
     padding: 10px;
-    margin-left: 25px;
+    margin-left: 65px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     
 }
+
+.commentBox .user {
+	font-weight: bold;
+	float: left; 
+	
+}
+
 .commentBox .time {
 	float: right;
 	font-size: 15px;
 }
-.commentBox .user {
-	font-weight: bold;
-	float: left; 
+
+.commentBox .city {
+	float: right;
+	font-size: 20px;
 }
 
 .commentBox .input {
 	margin-top: 40px;
 	margin-bottom: 20px;
+	margin-left: 15px;
+	padding: 10px;
+}
+
+.reply {
+	margin-left: 680px;
+	margin-bottom: 5px;
 }

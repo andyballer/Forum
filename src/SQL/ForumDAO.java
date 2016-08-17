@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class ForumDAO {
 
+	public static List<Comment> allComments = new ArrayList<Comment>();
+	
 	public Connection getConnection(){
 		String connectionURL = "jdbc:mysql://localhost:3306/Forum?autoReconnect=true&useSSL=false";
 		String user = "root";
@@ -37,10 +40,28 @@ public class ForumDAO {
 		}
 	}
 	
+	//not sure where to put this so it only runs once
+	/**
+	 * Initializes my static variables when the server starts
+	 * @return
+	 */
+	public void onStartUp(){
+		allComments = selectAll();
+		if(!allComments.isEmpty()){
+			Comment lastComment = allComments.get(allComments.size() - 1);
+			Comment.idCount = lastComment.getId();
+		}
+	}
 	
-	public void create(Comment comment){
-		Connection connection = getConnection();
+	/**
+	 * Adds comment to comment list and puts it into database
+	 * @param comment
+	 */
+	public void createEntry(Comment comment){		
+		//add comment into front of list
+		allComments.add(0,comment);
 		
+		Connection connection = getConnection();		
 		String sql = "insert into userEntries (Id, Input, User, Time, City) values (?,?,?,?,?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -60,14 +81,12 @@ public class ForumDAO {
 		
 	}
 	
-	//Can I make this only execute once instead of every time? Only add in new comment to list on POST()?
-	public List<Comment> selectAll(){
-		List<Comment> comments = new ArrayList<Comment>();
+	public ResultSet sqlCall(String selectString){
 		Connection connection = getConnection();
-		String selectComments = "select * from userEntries order by time DESC";
+		
 		PreparedStatement statement = null;
 		try {
-			statement = connection.prepareStatement(selectComments);
+			statement = connection.prepareStatement(selectString);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,6 +98,39 @@ public class ForumDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return results;
+	}
+	
+	//just made variable static = much better saves work.
+	/**
+	 * retrieves the last id in the database and stores it in the id
+	 */
+//	public int retrieveLastId(){
+//		int lastId = -1;
+//		
+//		String selectLastComment = "select (Id) from userEntries order by time DESC LIMIT 1";
+//		ResultSet results = sqlCall(selectLastComment);
+//		try {
+//			if(results.next()){
+//				lastId = results.getInt("Id");
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return lastId;
+//		
+//	}
+	
+	//Can I make this only execute once instead of every time? Only add in new comment to list on POST()?
+	
+	public List<Comment> selectAll(){
+		List<Comment> comments = new ArrayList<Comment>();
+		String selectComments = "select * from userEntries order by time DESC";
+		ResultSet results = sqlCall(selectComments);
+
 		try {
 			while(results.next()){
 				String user = results.getString("User");

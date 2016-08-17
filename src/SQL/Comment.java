@@ -17,43 +17,35 @@ public class Comment {
 	private String longitutde;
 	private int parentId; //always only has one parent
 	
-	private static int idCount=1;
+	public static int idCount = 0;
+	
+	//redo the comments so that the constructors just call get and set methods
+	//dont want to have to pass in all these things. if null then anonymous etc
 	
 	public Comment(){
 		super();
 	}
-	
-	public Comment(String user, String input){
-		this.input = input;
-		this.user = user;
-		setTime();
-		setId();
-
-	}
-	
+		
+	//constructor when put into database
 	public Comment(String user, String input, String city){
 		this.input = input;
-		this.user = user;
-		this.city = city;
+		setUser(user);
+		setCity(city);
 		setId();
 		setTime();
 	}
 	
-	//creates comments for comment list pulling all info from database
+	
+	//constructor for comments coming out of database
 	public Comment(String user, String input, String city, Timestamp time, int id){
 		this.input = input;
 		this.user = user;
 		this.city = city;
 		this.time = time;
 		this.id = id;
-		//this should probably be on front end so comment objects dont need to carry it around
-		setReadableTime();
-	}
 		
-	public Comment(String input){
-		this.input = input;
-		setId();
-		setTime();
+		//this should probably be on front end so comment objects dont need to carry two times around
+		setReadableTime();
 	}
 
 	public String getInput() {
@@ -69,7 +61,11 @@ public class Comment {
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		String noUser = "Anonymous";
+		if(user == ""){
+			this.user = noUser;
+		}
+		else this.user = user;
 	}
 	
 	//need this method
@@ -103,7 +99,10 @@ public class Comment {
 
 
 	public void setCity(String city){
-		this.city = city;
+		if(city.equals("")){
+			this.city = "Unknown";
+		}
+		else this.city = city;
 	}
 	
 	public String getCity(){
@@ -116,10 +115,19 @@ public class Comment {
 	
 	//sets id only if the id is null
 	protected void setId(){
-		if(this.id == 0){
-			this.id = idCount;
-			idCount++;
-		}
+//		if(idCount == 0){
+//			ForumDAO getLastId = new ForumDAO();
+//			int previousId = getLastId.retrieveLastId();
+//			if(previousId == -1){
+//				idCount = 1;
+//			}
+//			else idCount = previousId+1;
+//		}
+//		else{
+//			idCount++;
+//		}
+		idCount++;
+		this.id = idCount;
 	}
-
+	
 }

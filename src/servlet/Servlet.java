@@ -20,6 +20,9 @@ import SQL.ForumDAO;
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+
+	private boolean didStartUp = false;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -33,10 +36,17 @@ public class Servlet extends HttpServlet {
 	 */
 	//Gets information from the database
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ForumDAO forum = new ForumDAO();
-		List<Comment> comments = forum.selectAll();
-		request.setAttribute("comments", comments); //.getSession?
+		if(didStartUp == false){
+			ForumDAO forum = new ForumDAO();
+			forum.onStartUp();
+			didStartUp = true;
+		}
+//		
+//		List<Comment> comments = forum.selectAll();
 		
+		
+		//request.setAttribute("comments", comments); //.getSession?
+		request.setAttribute("comments", ForumDAO.allComments);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
 		dispatcher.forward(request, response);
@@ -54,11 +64,11 @@ public class Servlet extends HttpServlet {
 		String city = request.getParameter("city");
 		
 		//submit to database
-		ForumDAO handleSubmit = new ForumDAO();
 		Comment toSubmit = new Comment(user, input, city);
 		
 		if(toSubmit != null){
-			handleSubmit.create(toSubmit);
+			ForumDAO helpSubmit = new ForumDAO();
+			helpSubmit.createEntry(toSubmit);
 		}
 
 		//reloads page and uploads new comment from server

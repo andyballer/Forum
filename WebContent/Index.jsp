@@ -53,26 +53,31 @@
 				</tbody>
 			</table>
 			<div class="buttonMargin">
-				<input class="submit" type="submit" submit value="Done" name="submit"/>
+				<input class="submit" type="submit" submit value="Submit" name="submit"/>
 				<span id="charCount" class="charCount">Characters remaining: 200</span>
 			</div>
 		</form>
 		<br>
 	</div>
 	
-<div class="commentSection">Comments:</div>
+	
+	<div class="commentSection">Comments:</div>
 
 <!-- Loads in comments from database to be displayed below form -->
 	<c:forEach items="${comments}" var="comment" varStatus="index"> 
-	<div class="commentBox" >
-		<span class="time">@ ${comment.readableTime}</span>
-		<span class ="city"> FROM: ${comment.city}</span>
-		<span class="user">${comment.user}</span>
-		<div class="input"> ${comment.input}</div>
+	
+		<div class="commentBox" >
+			<span class="user">${comment.user}</span>
+			<span class="time"> Posted @ ${comment.readableTime}</span>
+			<br>
+			<div class ="city"> From: ${comment.city}</div>
+			<div class="input"> ${comment.input}</div>		
+		</div>
 		
-		<!-- pass index as varStatus from jsp to javascript to keep track of where responses go -->
-		<input type="submit" submit value = "reply" onClick="reply(${index.index});">
-	</div>
+		<div class="reply">
+			<!-- pass index as varStatus from jsp to javascript to keep track of where responses go -->
+			<input type="submit" submit value = "reply" onClick="reply(${index.index});">
+		</div>
 	</c:forEach>
 
 
