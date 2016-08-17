@@ -19,9 +19,8 @@ import SQL.ForumDAO;
  */
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-
-	private boolean didStartUp = false;
+	//should only have one forum DAO
+	public ForumDAO forum = new ForumDAO();
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -34,20 +33,10 @@ public class Servlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	//Gets information from the database
+	//Gets information from the database when the server is launched. Makes no change to database
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(didStartUp == false){
-			ForumDAO forum = new ForumDAO();
-			forum.onStartUp();
-			didStartUp = true;
-		}
-//		
-//		List<Comment> comments = forum.selectAll();
-		
-		
-		//request.setAttribute("comments", comments); //.getSession?
-		request.setAttribute("comments", ForumDAO.allComments);
-		
+		forum.onStartUp();
+		request.setAttribute("comments", forum.allComments);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
 		dispatcher.forward(request, response);
 
@@ -67,13 +56,12 @@ public class Servlet extends HttpServlet {
 		Comment toSubmit = new Comment(user, input, city);
 		
 		if(toSubmit != null){
-			ForumDAO helpSubmit = new ForumDAO();
-			helpSubmit.createEntry(toSubmit);
+			forum.createEntry(toSubmit);
 		}
 
-		//reloads page and uploads new comment from server
-		//typically doPost will forward to new page, but we're keeping same page so need doGet again
-		doGet(request, response);
+		request.setAttribute("comments", forum.allComments);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		dispatcher.forward(request, response);
 
 
 

@@ -33,6 +33,7 @@ public class Comment {
 		setCity(city);
 		setId();
 		setTime();
+		setReadableTime();
 	}
 	
 	
@@ -43,8 +44,6 @@ public class Comment {
 		this.city = city;
 		this.time = time;
 		this.id = id;
-		
-		//this should probably be on front end so comment objects dont need to carry two times around
 		setReadableTime();
 	}
 
@@ -115,17 +114,6 @@ public class Comment {
 	
 	//sets id only if the id is null
 	protected void setId(){
-//		if(idCount == 0){
-//			ForumDAO getLastId = new ForumDAO();
-//			int previousId = getLastId.retrieveLastId();
-//			if(previousId == -1){
-//				idCount = 1;
-//			}
-//			else idCount = previousId+1;
-//		}
-//		else{
-//			idCount++;
-//		}
 		idCount++;
 		this.id = idCount;
 	}

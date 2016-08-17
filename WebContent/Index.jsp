@@ -28,7 +28,9 @@
 
 <body class="backgroundColor">
 	<header>
-		<img class ="image" src="resources/images/loyaltyLogo.png" width="1000" height="500" alt="">
+		<a href="https://www.loyalty.com/" >
+		<img class ="image" src="resources/images/loyaltyLogo.png" width="1000" height="500" alt="LoyaltyOne" >
+		</a>
 		<div class="headerText">
 			<p><h2> <span class="company"> Company </span> <span class="forum" >Forum </span></h2> </p>
 		</div>
@@ -71,7 +73,7 @@
 	
 		<div class="commentBox" >
 			<span class="user">${comment.user}</span>
-			<span class="time"> Posted @ ${comment.readableTime}</span>
+			<span class="time"> Posted on ${comment.readableTime}</span>
 			<br>
 			<div class ="city"> From: ${comment.city}</div>
 			<div class="input"> ${comment.input}</div>		

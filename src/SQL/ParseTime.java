@@ -11,7 +11,7 @@ public class ParseTime {
 		String day = time.substring(8,10);
 		
 		String hour = time.substring(11,19);
-		String date = month + " " + day + " " + year + ", " + hour; 
+		String date = month + " " + day + " " + year + " @ " + hour; 
 		//System.out.println(date);
 		return date;
 	}

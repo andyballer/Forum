@@ -12,8 +12,12 @@ import java.util.List;
 
 public class ForumDAO {
 
-	public static List<Comment> allComments = new ArrayList<Comment>();
+	public List<Comment> allComments = new ArrayList<Comment>();
 	
+	/**
+	 * Sets connection to database
+	 * @return
+	 */
 	public Connection getConnection(){
 		String connectionURL = "jdbc:mysql://localhost:3306/Forum?autoReconnect=true&useSSL=false";
 		String user = "root";
@@ -42,14 +46,18 @@ public class ForumDAO {
 	
 	//not sure where to put this so it only runs once
 	/**
-	 * Initializes my static variables when the server starts
+	 * Initializes local copy of comments and sets idCount
 	 * @return
 	 */
 	public void onStartUp(){
 		allComments = selectAll();
 		if(!allComments.isEmpty()){
-			Comment lastComment = allComments.get(allComments.size() - 1);
+			Comment lastComment = allComments.get(0);
 			Comment.idCount = lastComment.getId();
+		}
+		else{
+			//if no comments then reset idCount because database was deleted or is empty
+			Comment.idCount = 0;
 		}
 	}
 	
@@ -150,14 +158,14 @@ public class ForumDAO {
 	}
 	
 
-	public static void main(String[] args) {
-		ForumDAO dao = new ForumDAO();
-		Connection connection = dao.getConnection();
-
-		
-		System.out.println(connection);
-		dao.closeConnection(connection);
-
-	}
+//	public static void main(String[] args) {
+//		ForumDAO dao = new ForumDAO();
+//		Connection connection = dao.getConnection();
+//
+//		
+//		//System.out.println(connection);
+//		dao.closeConnection(connection);
+//
+//	}
 
 }
