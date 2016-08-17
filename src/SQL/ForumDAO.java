@@ -89,6 +89,23 @@ public class ForumDAO {
 		
 	}
 	
+	/**
+	 * Takes string and executes sql command. Can be used to delete
+	 * @param query
+	 */
+	public void executeQuery(String query){
+		Connection connection = getConnection();	
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement(query);
+			statement.execute(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		closeConnection(connection);
+	}
+	
 	public ResultSet sqlCall(String selectString){
 		Connection connection = getConnection();
 		
