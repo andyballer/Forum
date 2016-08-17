@@ -3,21 +3,29 @@
  font-family: Georgia,Times,Times New Roman,serif; 
 }
 
-
-
-
-
 .image{	
-	color: #007cc2;
 	position: relative;
 }
 
+.headerText{
+	text-align: center;
+}
+
+.backgroundImage{
+	position: absolute;
+	left:220px;
+}
+
+.company{
+	color: #0079c5;
+}
+
 .forum{
-	color:
+	color: #78bde7;
 }
 
 .backgroundColor{
-	background-color: #f5ebdb;
+	background-color: ;
 }
 .form{
 	margin-left: 55px;
@@ -56,9 +64,10 @@ header,footer {
 
 .commentBox {
     width: 685px;
+    border-radius: 25px;
     border-style: solid;
     border-color: #007cc2;
-    background-color: #D3D3D3;
+    background-color: #b2e0f9;
     padding: 10px;
     margin-left: 65px;
     margin-top: 10px;

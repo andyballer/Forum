@@ -19,16 +19,19 @@
 <!-- Mobile-friendly viewport -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
+
 <title>Client-Forum</title>
+
 </head>
 
 <body class="backgroundColor">
-
 	<header>
-		<div class="image">
-			<img src="resources/images/loyaltyLogo.jpg" width="700" height="200" alt="">
-		 	<h2>Company Forum</h2>
-		 </div>
+		<img class ="image" src="resources/images/loyaltyLogo.png" width="1000" height="500" alt="">
+		<div class="headerText">
+			<p><h2> <span class="company"> Company </span> <span class="forum" >Forum </span></h2> </p>
+		</div>
 	</header>
 	
 	<!-- Takes input from a user and posts it to the forum -->
@@ -36,7 +39,7 @@
 		<form name="myForm" action="myServletPath" method="post" onsubmit="return alertNull()">
 			<table>
 				<tbody>
-
+						
 					<tr>
 						<td><h4>Username:</h4></td>
 						<td><input type="text" name="user" size="53" /></td>
