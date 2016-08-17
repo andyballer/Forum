@@ -66,24 +66,27 @@
 	</div>
 	
 	
-	<div class="commentSection">Comments:</div>
-
-<!-- Loads in comments from database to be displayed below form -->
-	<c:forEach items="${comments}" var="comment" varStatus="index"> 
+	<div class="commentTitle">Comments:</div>
 	
-		<div class="commentBox" >
-			<span class="user">${comment.user}</span>
-			<span class="time"> Posted on ${comment.readableTime}</span>
-			<br>
-			<div class ="city"> From: ${comment.city}</div>
-			<div class="input"> ${comment.input}</div>		
-		</div>
+	<div class = "commentSection">
+		<br>
+<!-- Loads in comments from database to be displayed below form -->
+		<c:forEach items="${comments}" var="comment"> 
+	
+			<div class="commentBox" >
+				<span class="user">${comment.user}</span>
+				<span class="time"> Posted on ${comment.readableTime}</span>
+				<br>
+				<div class ="city"> From: ${comment.city}</div>
+				<div class="input"> ${comment.input}</div>		
+			</div>
 		
-		<div class="reply">
-			<!-- pass index as varStatus from jsp to javascript to keep track of where responses go -->
-			<input type="submit" submit value = "reply" onClick="reply(${index.index});">
-		</div>
-	</c:forEach>
+			<div class="reply">
+				<!-- pass index as varStatus from jsp to javascript to keep track of where responses go -->
+				<input type="submit" submit value = "reply" onClick="reply(${comment.id});">
+			</div>
+		</c:forEach>
+	</div>
 
 
 <footer>
