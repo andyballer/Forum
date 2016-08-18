@@ -45,11 +45,10 @@ function reply(index){
 	
 	var replyTo = document.getElementById("comment"+index.toString());
 	var innerDiv = document.createElement("div");
-	//onsubmit="return alertNull(\'replyForm\', \'reply\')"
-	//replyTo.innerHTML += '<form name="replyForm" action="myServletPath" method="post">';
+	
 	replyTo.innerHTML += '<textarea name="reply" rows="5" cols="60"></textarea>';
 	replyTo.innerHTML += '<input type="submit" submit value = "Send" name="response"/>';
-	//replyTo.innerHTML += '</form>';
+	replyTo.innerHTML += '<input type="hidden" name="parentId" value='+index.toString()+'>';
 	replyTo.appendChild(innerDiv);
 		
 	var button = document.getElementById("button"+index.toString());

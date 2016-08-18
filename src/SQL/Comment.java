@@ -47,6 +47,15 @@ public class Comment {
 		setReadableTime();
 	}
 
+	public Comment(String reply, int parentId) {
+		this.input = reply;
+		this.parentId = parentId;
+		setId();
+		setTime();
+		setReadableTime();
+		
+	}
+
 	public String getInput() {
 		return input;
 	}

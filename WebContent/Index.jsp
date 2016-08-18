@@ -39,6 +39,7 @@
 	<!-- Takes input from a user and posts it to the forum -->	
 	<div class="form">
 		<form name="myForm" action="myServletPath" method="post" onsubmit="return alertNull('myForm', 'input')">
+			<input type="hidden" name="commentType" value="initial">
 			<table>
 				<tbody>
 						
@@ -72,7 +73,7 @@
 	
 	<!--  cannot dynamically add form in javascript, so this form handles replies -->
 	<form name="replyForm" action="myServletPath" method="post" onsubmit="return alertNull('replyForm', 'reply')">
-
+		<input type="hidden" name="commentType" value="reply">
 		<br>
 		
 <!-- Loads in comments from allComments list to be displayed below form -->
