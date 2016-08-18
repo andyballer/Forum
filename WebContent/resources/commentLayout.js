@@ -1,7 +1,7 @@
 //include jquery library
 
-function alertNull(){
-	var comment = document.forms["myForm"]["input"].value;
+function alertNull(formName, input){
+	var comment = document.forms[formName][input].value;
 	if(comment == null || comment == ""){
 		alert("Please write a comment to submit");
 		return false;
@@ -42,13 +42,17 @@ function postComment(comment){
 }
 
 function reply(index){
-	alert(index);
-	var x=document.getElementById(id);
-	alert(x);
-
-	//var innerDiv = document.createElement("div");
 	
-	x.innerHTML += '<textarea name="input" rows="10" cols="40"></textarea>';
-	//use div.appendChild(innerDiv
-	return;
+	var replyTo = document.getElementById("comment"+index.toString());
+	var innerDiv = document.createElement("div");
+	//onsubmit="return alertNull(\'replyForm\', \'reply\')"
+	//replyTo.innerHTML += '<form name="replyForm" action="myServletPath" method="post">';
+	replyTo.innerHTML += '<textarea name="reply" rows="5" cols="60"></textarea>';
+	replyTo.innerHTML += '<input type="submit" submit value = "Send" name="response"/>';
+	//replyTo.innerHTML += '</form>';
+	replyTo.appendChild(innerDiv);
+		
+	var button = document.getElementById("button"+index.toString());
+	button.style.visibility = "hidden";
+
 }

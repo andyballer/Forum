@@ -47,7 +47,7 @@ public class Servlet extends HttpServlet {
 	 */
 	//posts information to the webpage
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String user = request.getParameter("user");
 		String input = request.getParameter("input");
 		String city = request.getParameter("city");
@@ -58,6 +58,9 @@ public class Servlet extends HttpServlet {
 		if(toSubmit != null){
 			forum.createEntry(toSubmit);
 		}
+		String reply = request.getParameter("response");
+		System.out.println(reply);
+		
 
 		request.setAttribute("comments", forum.allComments);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");

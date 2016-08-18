@@ -36,9 +36,9 @@
 		</div>
 	</header>
 	
-	<!-- Takes input from a user and posts it to the forum -->
+	<!-- Takes input from a user and posts it to the forum -->	
 	<div class="form">
-		<form name="myForm" action="myServletPath" method="post" onsubmit="return alertNull()">
+		<form name="myForm" action="myServletPath" method="post" onsubmit="return alertNull('myForm', 'input')">
 			<table>
 				<tbody>
 						
@@ -69,23 +69,28 @@
 	<div class="commentTitle">Comments:</div>
 	
 	<div class = "commentSection">
+	
+	<!--  cannot dynamically add form in javascript, so this form handles replies -->
+	<form name="replyForm" action="myServletPath" method="post" onsubmit="return alertNull('replyForm', 'reply')">
+
 		<br>
-<!-- Loads in comments from database to be displayed below form -->
+		
+<!-- Loads in comments from allComments list to be displayed below form -->
 		<c:forEach items="${comments}" var="comment"> 
 	
-			<div class="commentBox" >
+			<div class="commentBox" id="comment${comment.id}">
 				<span class="user">${comment.user}</span>
 				<span class="time"> Posted on ${comment.readableTime}</span>
 				<br>
 				<div class ="city"> From: ${comment.city}</div>
 				<div class="input"> ${comment.input}</div>		
 			</div>
-		
+			<div id="responses" class = "responses" ></div>
 			<div class="reply">
-				<!-- pass index as varStatus from jsp to javascript to keep track of where responses go -->
-				<input type="submit" submit value = "reply" onClick="reply(${comment.id});">
+				<button type="button" id="button${comment.id}" onClick="reply(${comment.id});">Reply</button>
 			</div>
 		</c:forEach>
+	</form>
 	</div>
 
 
