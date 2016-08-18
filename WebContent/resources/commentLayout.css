@@ -103,7 +103,14 @@ header,footer {
 	padding: 10px;
 }
 
+.commentBox .indent {
+	margin-left: 100px;
+	background-color: red;
+}
+
+
 .reply {
 	margin-left: 680px;
 	margin-bottom: 5px;
 }
+

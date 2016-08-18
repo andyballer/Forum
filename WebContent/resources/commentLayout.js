@@ -45,14 +45,14 @@ function reply(commentId, commentIndex){
 	
 	var replyTo = document.getElementById("comment"+commentId.toString());
 	var innerDiv = document.createElement("div");
-	innerDiv.className="reply";
 	
-	replyTo.innerHTML += '<textarea name="reply" rows="5" cols="60"></textarea>';
-	replyTo.innerHTML += '<input type="submit" submit value = "Send" name="response"/>';
-	replyTo.innerHTML += '<input type="hidden" name="parentId" value='+commentId.toString()+'>';
-	replyTo.innerHTML += '<input type="hidden" name="parentIndex" value='+commentIndex.toString()+'>';
+	innerDiv.innerHTML += '<textarea name="reply" rows="5" cols="60"></textarea>';
+	innerDiv.innerHTML += '<input type="submit" submit value = "Send" name="response"/>';
+	innerDiv.innerHTML += '<input type="hidden" name="parentId" value='+commentId.toString()+'>';
+	innerDiv.innerHTML += '<input type="hidden" name="parentIndex" value='+commentIndex.toString()+'>';
+	
 	replyTo.appendChild(innerDiv);
-		
+	
 	var button = document.getElementById("button"+commentId.toString());
 	button.style.visibility = "hidden";
 
