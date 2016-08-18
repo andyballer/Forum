@@ -41,17 +41,19 @@ function postComment(comment){
 	return commentUser + commentTime + commentInput;
 }
 
-function reply(index){
+function reply(commentId, commentIndex){
 	
-	var replyTo = document.getElementById("comment"+index.toString());
+	var replyTo = document.getElementById("comment"+commentId.toString());
 	var innerDiv = document.createElement("div");
+	innerDiv.className="reply";
 	
 	replyTo.innerHTML += '<textarea name="reply" rows="5" cols="60"></textarea>';
 	replyTo.innerHTML += '<input type="submit" submit value = "Send" name="response"/>';
-	replyTo.innerHTML += '<input type="hidden" name="parentId" value='+index.toString()+'>';
+	replyTo.innerHTML += '<input type="hidden" name="parentId" value='+commentId.toString()+'>';
+	replyTo.innerHTML += '<input type="hidden" name="parentIndex" value='+commentIndex.toString()+'>';
 	replyTo.appendChild(innerDiv);
 		
-	var button = document.getElementById("button"+index.toString());
+	var button = document.getElementById("button"+commentId.toString());
 	button.style.visibility = "hidden";
 
 }

@@ -77,7 +77,7 @@
 		<br>
 		
 <!-- Loads in comments from allComments list to be displayed below form -->
-		<c:forEach items="${comments}" var="comment"> 
+		<c:forEach items="${comments}" var="comment" varStatus="commentPlace"> 
 	
 			<div class="commentBox" id="comment${comment.id}">
 				<span class="user">${comment.user}</span>
@@ -86,9 +86,9 @@
 				<div class ="city"> From: ${comment.city}</div>
 				<div class="input"> ${comment.input}</div>		
 			</div>
-			<div id="responses" class = "responses" ></div>
+			
 			<div class="reply">
-				<button type="button" id="button${comment.id}" onClick="reply(${comment.id});">Reply</button>
+				<button type="button" id="button${comment.id}" onClick="reply(${comment.id}, ${commentPlace.index});">Reply</button>
 			</div>
 		</c:forEach>
 	</form>

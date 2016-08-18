@@ -16,6 +16,7 @@ public class Comment {
 	private String latitude;
 	private String longitutde;
 	private int parentId; //always only has one parent
+	private int parentIndex; //to know where to place comment reply
 	
 	public static int idCount = 0;
 	
@@ -47,9 +48,10 @@ public class Comment {
 		setReadableTime();
 	}
 
-	public Comment(String reply, int parentId) {
+	public Comment(String reply, int parentId, int parentIndex) {
 		this.input = reply;
 		this.parentId = parentId;
+		this.parentIndex=parentIndex;
 		setId();
 		setTime();
 		setReadableTime();
@@ -125,6 +127,14 @@ public class Comment {
 	protected void setId(){
 		idCount++;
 		this.id = idCount;
+	}
+	
+	public int getParentId(){
+		return this.parentId;
+	}
+	
+	public int getParentIndex(){
+		return this.parentIndex;
 	}
 	
 }

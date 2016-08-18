@@ -62,8 +62,8 @@ public class Servlet extends HttpServlet {
 			String reply = request.getParameter("reply");
 			String parentIdString = request.getParameter("parentId");
 			int parentId = Integer.parseInt(parentIdString);
-			System.out.println(reply + " " + parentId);
-			toSubmit = new Comment(reply, parentId);
+			int parentIndex = Integer.parseInt(request.getParameter("parentIndex"))+1;
+			toSubmit = new Comment(reply, parentId, parentIndex);
 		}
 
 		if(toSubmit != null){

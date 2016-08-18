@@ -13,7 +13,7 @@ import java.util.List;
 public class ForumDAO {
 
 	public List<Comment> allComments = new ArrayList<Comment>();
-	
+
 	/**
 	 * Sets connection to database
 	 * @return
@@ -23,7 +23,7 @@ public class ForumDAO {
 		String user = "root";
 		String pass = "root";
 		Connection connection = null;
-		
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			connection = DriverManager.getConnection(connectionURL, user, pass);
@@ -34,7 +34,7 @@ public class ForumDAO {
 		return connection;
 
 	}
-	
+
 	public void closeConnection(Connection connection){
 		try {
 			connection.close();
@@ -43,7 +43,7 @@ public class ForumDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//not sure where to put this so it only runs once
 	/**
 	 * Initializes local copy of comments and sets idCount
@@ -60,35 +60,59 @@ public class ForumDAO {
 			Comment.idCount = 0;
 		}
 	}
-	
+
 	/**
 	 * Adds comment to comment list and puts it into database
 	 * @param comment
 	 */
 	public void createEntry(Comment comment){		
-		//add comment into front of list
-		allComments.add(0,comment);
-		
-		Connection connection = getConnection();		
-		String sql = "insert into userEntries (Id, Input, User, Time, City) values (?,?,?,?,?)";
-		try {
-			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, comment.getId());
-			statement.setString(2, comment.getInput());
-			statement.setString(3, comment.getUser());
-			statement.setTimestamp(4, comment.getTime());
-			statement.setString(5, comment.getCity());
-			
-			statement.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		Connection connection = getConnection();	
+
+		String sql = null;
+		//check if the comment is a reply or an initial
+		if(comment.getParentId() != 0){
+			//place comment right behind parent in list
+			allComments.add(comment.getParentIndex(), comment);
+			sql = "insert into userEntries (Id, Input, Time, ParentId) values (?,?,?,?)";
+			try {
+				PreparedStatement statement = connection.prepareStatement(sql);
+				statement.setInt(1, comment.getId());
+				statement.setString(2, comment.getInput());
+				statement.setTimestamp(3, comment.getTime());
+				statement.setInt(4, comment.getParentId());
+
+				statement.execute();
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-				
+
+		else{
+			//add comment into front of list
+			allComments.add(0,comment);
+			sql = "insert into userEntries (Id, Input, User, Time, City) values (?,?,?,?,?)";
+			try {
+				PreparedStatement statement = connection.prepareStatement(sql);
+				statement.setInt(1, comment.getId());
+				statement.setString(2, comment.getInput());
+				statement.setString(3, comment.getUser());
+				statement.setTimestamp(4, comment.getTime());
+				statement.setString(5, comment.getCity());
+
+				statement.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		closeConnection(connection);
-		
+
 	}
-	
+
 	/**
 	 * Takes string and executes sql command. Can be used to delete
 	 * @param query
@@ -105,10 +129,10 @@ public class ForumDAO {
 		}
 		closeConnection(connection);
 	}
-	
+
 	public ResultSet sqlCall(String selectString){
 		Connection connection = getConnection();
-		
+
 		PreparedStatement statement = null;
 		try {
 			statement = connection.prepareStatement(selectString);
@@ -123,34 +147,34 @@ public class ForumDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return results;
 	}
-	
+
 	//just made variable static = much better saves work.
 	/**
 	 * retrieves the last id in the database and stores it in the id
 	 */
-//	public int retrieveLastId(){
-//		int lastId = -1;
-//		
-//		String selectLastComment = "select (Id) from userEntries order by time DESC LIMIT 1";
-//		ResultSet results = sqlCall(selectLastComment);
-//		try {
-//			if(results.next()){
-//				lastId = results.getInt("Id");
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		return lastId;
-//		
-//	}
-	
+	//	public int retrieveLastId(){
+	//		int lastId = -1;
+	//		
+	//		String selectLastComment = "select (Id) from userEntries order by time DESC LIMIT 1";
+	//		ResultSet results = sqlCall(selectLastComment);
+	//		try {
+	//			if(results.next()){
+	//				lastId = results.getInt("Id");
+	//			}
+	//		} catch (SQLException e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}
+	//		
+	//		return lastId;
+	//		
+	//	}
+
 	//Can I make this only execute once instead of every time? Only add in new comment to list on POST()?
-	
+
 	public List<Comment> selectAll(){
 		List<Comment> comments = new ArrayList<Comment>();
 		String selectComments = "select * from userEntries order by time DESC";
@@ -163,7 +187,7 @@ public class ForumDAO {
 				String city = results.getString("City");
 				Timestamp time = results.getTimestamp("Time");
 				int id = results.getInt("Id");
-				
+
 				Comment comment = new Comment(user, input, city, time, id);
 				comments.add(comment);
 			}
@@ -173,16 +197,16 @@ public class ForumDAO {
 		}
 		return comments;
 	}
-	
 
-//	public static void main(String[] args) {
-//		ForumDAO dao = new ForumDAO();
-//		Connection connection = dao.getConnection();
-//
-//		
-//		//System.out.println(connection);
-//		dao.closeConnection(connection);
-//
-//	}
+
+	//	public static void main(String[] args) {
+	//		ForumDAO dao = new ForumDAO();
+	//		Connection connection = dao.getConnection();
+	//
+	//		
+	//		//System.out.println(connection);
+	//		dao.closeConnection(connection);
+	//
+	//	}
 
 }
