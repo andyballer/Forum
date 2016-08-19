@@ -36,6 +36,8 @@ public class Servlet extends HttpServlet {
 	//Gets information from the database when the server is launched. Makes no change to database
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		forum.onStartUp();
+		
+		//sends the comment list to the html
 		request.setAttribute("comments", forum.allComments);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
 		dispatcher.forward(request, response);
@@ -69,10 +71,6 @@ public class Servlet extends HttpServlet {
 		if(toSubmit != null){
 			forum.createEntry(toSubmit);
 		}
-
-		String reply = request.getParameter("response");
-		System.out.println(reply);
-
 
 		request.setAttribute("comments", forum.allComments);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");

@@ -43,10 +43,10 @@ public class ForumDAO {
 			e.printStackTrace();
 		}
 	}
-
-	//not sure where to put this so it only runs once
+	
 	/**
-	 * Initializes local copy of comments and sets idCount
+	 * Initializes local copy of comments and sets idCount each time the server is launched
+	 * through the servlet Get() method.
 	 * @return
 	 */
 	public void onStartUp(){
@@ -62,7 +62,9 @@ public class ForumDAO {
 	}
 
 	/**
-	 * Adds comment to comment list and puts it into database
+	 * Adds comment passed in to the comment list and puts it into database.
+	 * Keeps both a local copy in Java as well as in the database so that we
+	 * do not have to query all the comments from the database on every post.
 	 * @param comment
 	 */
 	public void createEntry(Comment comment){		
@@ -114,7 +116,7 @@ public class ForumDAO {
 	}
 
 	/**
-	 * Takes string and executes sql command. Can be used to delete
+	 * Takes string and executes sql command without returning anything. Can be used to delete.
 	 * @param query
 	 */
 	public void executeQuery(String query){
@@ -130,6 +132,11 @@ public class ForumDAO {
 		closeConnection(connection);
 	}
 
+	/**
+	 * Takes in a SQL query as a string and executes. Returns the ResultSet of the query.
+	 * @param selectString
+	 * @return
+	 */
 	public ResultSet sqlCall(String selectString){
 		Connection connection = getConnection();
 
@@ -151,33 +158,9 @@ public class ForumDAO {
 		return results;
 	}
 
-	//just made variable static = much better saves work.
-	/**
-	 * retrieves the last id in the database and stores it in the id
-	 */
-	//	public int retrieveLastId(){
-	//		int lastId = -1;
-	//		
-	//		String selectLastComment = "select (Id) from userEntries order by time DESC LIMIT 1";
-	//		ResultSet results = sqlCall(selectLastComment);
-	//		try {
-	//			if(results.next()){
-	//				lastId = results.getInt("Id");
-	//			}
-	//		} catch (SQLException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//		
-	//		return lastId;
-	//		
-	//	}
-
-	//Can I make this only execute once instead of every time? Only add in new comment to list on POST()?
-
 	public List<Comment> selectAll(){
 		List<Comment> comments = new ArrayList<Comment>();
-		String selectComments = "select * from userEntries order by time DESC";
+		String selectComments = "select * from userEntries order by Time DESC";
 		ResultSet results = sqlCall(selectComments);
 
 		try {
@@ -197,16 +180,5 @@ public class ForumDAO {
 		}
 		return comments;
 	}
-
-
-	//	public static void main(String[] args) {
-	//		ForumDAO dao = new ForumDAO();
-	//		Connection connection = dao.getConnection();
-	//
-	//		
-	//		//System.out.println(connection);
-	//		dao.closeConnection(connection);
-	//
-	//	}
 
 }

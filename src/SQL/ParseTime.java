@@ -1,5 +1,8 @@
 package SQL;
 
+/*
+ * Parses the timestamp into an actual human-readable time
+ */
 public class ParseTime {
 		
 	String[] monthNames = {"January", "February", "March", "April", "May", "June",
@@ -12,10 +15,12 @@ public class ParseTime {
 		
 		String hour = time.substring(11,19);
 		String date = month + " " + day + " " + year + " @ " + hour; 
-		//System.out.println(date);
 		return date;
 	}
 	
+	/*
+	 * converts month number to month name
+	 */
 	private String numsToLetters(String month){
 		return monthNames[Integer.parseInt(month)-1];
 		

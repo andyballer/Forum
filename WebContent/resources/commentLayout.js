@@ -18,29 +18,12 @@ var checkLength = function() {
 setInterval(checkLength, 200);
 }
 
-function postAllComments(){
-	//somehow load all comments in here from servlet
-	alert("postedcomments");
-	for(var comment in comments){
-		var div = document.createElement("div");
-		div.className = "commentBox";	
-		//div.onclick= function() {reply()}; need to implement for replies add inner div. probably not here?
-		
-		div.innerHTML = postComment(comment);
-		document.getElementsByTagName('comments')[0].appendChild(div);
-	}
-	
-	
-}
-
-function postComment(comment){
-	var commentUser = '<span class="user">' + comment.user + '</span>';
-	var commentTime = '<span class="time">' + comment.time + '</span>';
-	var commentInput = '<span class="input">' + comment.input + '</span>';
-	
-	return commentUser + commentTime + commentInput;
-}
-
+/*
+ * Handles what happens when the reply button is clicked on a comment
+ * Sends a textarea to submit comment to the html, and then posts the comment
+ * to the servlet upon submit, which results in the comment being posted to the 
+ * website below its parent
+ */
 function reply(commentId, commentIndex){
 	
 	var replyTo = document.getElementById("comment"+commentId.toString());

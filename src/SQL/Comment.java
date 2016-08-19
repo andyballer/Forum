@@ -4,8 +4,16 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-
+/**
+ * A comment object with all the possible input parameters from the user. Also contains
+ * extra information such as a unique id, the time the comment was created, the id of the parent 
+ * if that comment was a reply.
+ * @author Andy Ball
+ *
+ */
 public class Comment {
+	
+	//use use http://openweathermap.org/api to implement the weather/lat/long feature
 	
 	private int id;
 	private String user;
@@ -15,19 +23,20 @@ public class Comment {
 	private String readableTime;
 	private String latitude;
 	private String longitutde;
+	private int temperature;
 	private int parentId; //always only has one parent
 	private int parentIndex; //to know where to place comment reply
 	
+	//id is set with the static variable idCount, which keeps track of how many comments have ever been posted
 	public static int idCount = 0;
-	
-	//redo the comments so that the constructors just call get and set methods
-	//dont want to have to pass in all these things. if null then anonymous etc
 	
 	public Comment(){
 		super();
 	}
 		
-	//constructor when put into database
+	/*
+	 * constructor when put into database. Sets extra info not given
+	 */
 	public Comment(String user, String input, String city){
 		this.input = input;
 		setUser(user);
@@ -38,7 +47,9 @@ public class Comment {
 	}
 	
 	
-	//constructor for comments coming out of database
+	/*
+	 * constructor for comments coming out of database
+	 */
 	public Comment(String user, String input, String city, Timestamp time, int id){
 		this.input = input;
 		this.user = user;
@@ -48,6 +59,10 @@ public class Comment {
 		setReadableTime();
 	}
 
+	/*
+	 * Constructor for replies, which always must have a parentId and parent index where they
+	 * are stored on the forum, so that the replies can be placed appropriately
+	 */
 	public Comment(String reply, int parentId, int parentIndex) {
 		this.input = reply;
 		this.parentId = parentId;
@@ -78,13 +93,15 @@ public class Comment {
 		else this.user = user;
 	}
 	
-	//need this method
 	private Timestamp getCurrentTime(){
 		Calendar calendar = Calendar.getInstance();
 		Timestamp currentTime = new java.sql.Timestamp(calendar.getTime().getTime());
 		return currentTime;
 	}
-		
+	
+	/*
+	 * Converts the Timestamp into an actual date and time with the months of the year etc
+	 */
 	public void setReadableTime(){
 		ParseTime timeHandler = new ParseTime(); 
 		String timeString = getTime().toString();
